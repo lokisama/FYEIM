@@ -1,0 +1,218 @@
+<style>
+    table.dataTable tbody th, table.dataTable tbody td {
+        padding:2px 2px;
+    }
+    .table-scrollable tbody>tr>td {
+        white-space: nowrap!important;
+    }
+</style>
+<!-- BEGIN PAGE CONTENT-->
+<div class="row">
+    <div class="col-md-8">
+        <!-- BEGIN TODO SIDEBAR -->
+        <div class="portlet patac-portlet" style="height:400px;">
+            <div class="portlet-title">
+                <div class="caption">
+                    <span class="caption-subject font-white uppercase">设备视频/照片 </span>
+                </div>
+                
+            </div>
+            <div class="portlet-body">
+                <div class="device-image">
+                    <img src='./image/{{deviceId}}.png' />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="portlet patac-portlet" style="height:400px;">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject font-white uppercase">设备启停状态</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div>
+                    
+                    <span ng-style="statusColor" style="color:#a6e528;line-height:100px;display:block;margin:0 40px;font-size:24px;text-align:center;font-size:60px;font-weight:bold;" ng-bind="statusText">运 行</span>
+                    </div>
+
+                    <div id="TimeStatus" style="height:200px;"></div>
+                    
+                </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="portlet patac-portlet" style="height:400px;">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject font-white uppercase">作动缸温度 </span>
+                    </div>
+                    <div class="actions">
+                        <div class="btn-group" style="z-index: 1000">
+                            <a id="hoverBtn" class="btn btn-sm white btn-outline btn-circle" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"> 通道
+                                <i class="fa fa-angle-down"></i>
+                            </a>
+                            <div class="dropdown-menu hold-on-click dropdown-checkboxes pull-right" style="overflow-y: auto;max-height: 340px;" id="CHList">
+                                <label ng-repeat="ch in chList" >
+                                    <input type="checkbox" data-id="{{ch}}"/> CH{{ch}}</label>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div id="bar2" style="height:240px;top:-48px;"></div>
+                    <div style="height:130px;max-width:420px;position: relative;top:-70px;left:-9px;">
+                        <dl class="patac-temp" style="width: 110%;">
+                            <dd ng-repeat="ch in chShowList">
+                                <span>CH{{ch.channelCode}}</span>
+                                <span class="temp" ng-class="{true:'red',false:''}[ch.alarm==1]">{{ch.temp}}<span style="font-size:14px ">°C</span></span><br/>
+                            </dd>
+                        </dl>
+                    
+                    </div>
+
+                </div>
+                </div>
+            </div>
+        </div>
+        <!-- END TODO SIDEBAR -->
+    </div>
+    
+    <div class="col-md-4">
+
+        <div class="portlet patac-portlet " style="min-height:400px;">
+            <div class="portlet-title">
+                <div class="caption">
+                    <span class="caption-subject font-white uppercase">Station日志</span>
+                </div>
+                <div class="btn-group btn-group-circle pull-right">
+                    <button ng-click="getWarnning('Station','warning')" class="btn btn-sm  white active">报警</button>
+                    <button ng-click="getWarnning('Station','normal')" class="btn  btn-sm white">其他</button>
+                </div>
+            </div>
+            <div class="portlet-body">
+
+                <table class="table table-striped table-bordered  order-column m-t-lg hide" id="station">
+                    <thead>
+                        <tr>
+                            <th> Time </th>
+                            <th> Log </th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd gradeX" ng-repeat="data in station" on-repeat-finished>
+                            <td ng-bind="data.time | date:'yyyy-MM-dd hh:mm:ss:sss' "></td>
+                            <td ng-bind="data.msg"> shuxer </td>
+                            
+
+                        </tr>
+                        
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+        <div class="portlet patac-portlet " style="min-height:400px;">
+            <div class="portlet-title">
+                <div class="caption">
+                    <span class="caption-subject font-white uppercase">日志</span>
+                </div>
+                <div class="btn-group btn-group-circle pull-right" style="margin-left: 5px;">
+                    <button class="btn btn-sm white active" href="javascript:;" ng-click="showWarnningData('RPC')">
+                                RPC
+                    </button>
+                    <button class="btn btn-sm white" href="javascript:;" ng-click="showWarnningData('MPT','warning')">
+                                MPT
+                    </button>
+                </div>
+                <div class="btn-group btn-group-circle pull-right"  ng-show="MPT.show==1">
+                    <!--<div class="btn-group btn-group-circle">-->
+                        <button ng-click="showWarnningData('MPT','warning')" class="btn btn-sm white active" ng-class="{true :'active', false :''}[mptWarning.show==1]">报警</button>
+                        <button ng-click="showWarnningData('MPT','normal')" class="btn btn-sm white" ng-class="{true :'active', false :''}[mptNormal.show==1]">其他</button>
+                    <!--</div>-->
+                </div>
+            </div>
+            <div class="portlet-body" ng-show="RPC.show==1">
+
+                <table class="table table-striped table-bordered  order-column m-t-lg hide" id="rpc">
+                    <thead>
+                        <tr>
+                            <!-- <th> 报警信息 </th> -->
+                            <th> Time </th>
+                            <th> Sequence </th>
+                            <th> Channel </th>
+                            <th> CurrentValue </th>
+                            <th> LimitValue </th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd gradeX" ng-repeat="data in RPC.data" on-repeat-finished2>
+                            <!-- <td ng-bind="data.sequence"> shuxer </td> -->
+                            <td ng-bind="data.time | date:'yyyy-MM-dd hh:mm:ss:sss'"></td>
+                            <td ng-bind="data.sequence" style="white-space:normal"> shuxer </td>
+                            <td ng-bind="data.channel"> shuxer </td>
+                            <td ng-bind="data.currentValue | number:2"> shuxer </td>
+                            <td ng-bind="data.limitValue | number:2"> shuxer </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="portlet-body" ng-show="mptWarning.show==1">
+
+                <table class="table table-striped table-bordered  order-column m-t-lg" id="mpt-warning">
+                    <thead>
+                    <tr>
+                        <!-- <th> 报警信息 </th> -->
+                        <th> Time </th>
+                        <th> EquipNo </th>
+                        <th> Level </th>
+                        <th> Log </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="odd gradeX" ng-repeat="data in mptWarning.data" on-repeat-finished3>
+                        <!-- <td ng-bind="data.sequence"> shuxer </td> -->
+                        <td ng-bind="data.time | date:'yyyy-MM-dd hh:mm:ss:sss'"></td>
+                        <td ng-bind="data.equipNo" style="white-space:normal"> shuxer </td>
+                        <td ng-bind="data.level"> shuxer </td>
+                        <td ng-bind="data.msg"> shuxer </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="portlet-body" ng-show="mptNormal.show==1">
+
+                <table class="table table-striped table-bordered  order-column m-t-lg" id="mpt-normal">
+                    <thead>
+                    <tr>
+                        <!-- <th> 报警信息 </th> -->
+                        <th> Time </th>
+                        <th> EquipNo </th>
+                        <th> Level </th>
+                        <th> Log </th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="odd gradeX" ng-repeat="data in mptNormal.data" on-repeat-finished4>
+                        <!-- <td ng-bind="data.sequence"> shuxer </td> -->
+                        <td ng-bind="data.time | date:'yyyy-MM-dd hh:mm:ss:sss'"></td>
+                        <td ng-bind="data.equipNo" style="white-space:normal"> shuxer </td>
+                        <td ng-bind="data.level"> shuxer </td>
+                        <td ng-bind="data.msg"> shuxer </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>

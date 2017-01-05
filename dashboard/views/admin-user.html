@@ -1,0 +1,151 @@
+
+<div class="page-bar patac-breadcrumb">
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="icon-home font-white"></i>
+            <span class="font-white">权限配置</span>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <i class="font-white"></i>
+            <a ui-sref="admin.user" class="font-white">用户管理</a>
+        </li>
+    </ul>
+</div>
+<!-- BEGIN PAGE CONTENT-->
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet patac-portlet">
+            <div class="portlet-title">
+                <div class="caption">
+                    <span class="caption-subject bold uppercase">用户管理 </span>
+                    
+                </div>
+                <button class="btn btn-outline white modal-header pull-right" ng-click="create()"><i class="fa fa-plus"></i>添加</button>
+                
+            </div>
+            <div class="portlet-body">
+                
+                <table class="table table-striped table-bordered table-checkable order-column hide" id="user">
+                    <thead>
+                        <tr>
+                            <!-- <th><input type="checkbox" class="group-checkable" data-set="#user .checkboxes" /></th> -->
+                            <th> 用户名 </th>
+                            <th> 中文名 </th>
+                            <th> 英文名 </th>
+                            <th> 员工号 </th>
+                            <th> 电子邮箱 </th>
+                            <th> 状态 </th>
+                            <th> 操作 </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd gradeX" ng-repeat="d in datas" on-repeat-finished>
+                            <!-- <td><input type="checkbox" class="checkboxes" value="1" /> </td> -->
+                            <td ng-bind="d.userName"></td>
+                            <td ng-bind="d.realName"></td>
+                            <td ng-bind="d.enName"></td>
+                            <td ng-bind="d.employeeId"></td>
+                            <td ng-bind="d.email"></td>
+                            <td ng-bind="d.status | userStatus"></td>
+                            <td>
+                                <button class="btn btn-outline white" action="edit" data-id="{{d.id}}" data-toggle="modal" href="#draggable" ng-click="upDataUser($event)">修改</button>
+                                <button class="btn btn-danger" action="delete" data-id="{{d.id}}" ng-click="delData(d.id)">删除</button>
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade draggable-modal" id="draggable" tabindex="-1" role="basic" aria-hidden="true"  data-backdrop="static"  >
+    <div class="modal-dialog">
+    <form class=" form-row-seperated" method="post" name="userForm" ng-submit="save(userForm)" ng-validate="validationOptions">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title text-center font-green-sharp bold uppercase" ng-bind="action">用户编辑</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                <div class="col-md-12">
+                        <div class="portlet">
+                            <div class="portlet-body">
+                                <div class="form-body">
+                                    <div class="row">
+                                        <div class="col-md-4 col-sm-4">
+                                            <div class="form-group form-md-line-input">
+                                                <input type="text" class="form-control" name="userName" id="userName" placeholder="请输入用户名"
+                                                ng-model="data.userName" required>
+                                                <label for="userName">用户名
+                                                    <span class="required"> * </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                             <div class="form-group form-md-line-input">
+                                                <input type="text" class="form-control" name="employeeId" id="employeeId" placeholder="请输入员工号"
+                                                ng-model="data.employeeId">
+                                                <label for="employeeId">员工号
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <div class="form-group form-md-line-input">
+                                                <input type="text" class="form-control" id="email" name="email" placeholder="请输入电子邮箱"
+                                                ng-model="data.email">
+                                                <label for="email">电子邮箱
+                                                </label>
+                                                <error-msg></error-msg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6">
+                                            <div class="form-group form-md-line-input">
+                                                <input type="text" class="form-control" id="realName" name="realName" placeholder="请输入中文名"
+                                                ng-model="data.realName" required>
+                                                <label for="realName">中文名
+                                                    <span class="required"> * </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6">
+                                            <div class="form-group form-md-line-input">
+                                                <input type="text" class="form-control" id="enName" name="enName" placeholder="请输入英文名"
+                                                ng-model="data.enName">
+                                                <label for="enName">英文名
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group form-md-line-input">
+                                            <label for="userDesc">角色列表</label>
+                                            <div id="tree_2" class="tree-demo scroller" style="height: 150px;"> </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn dark btn-outline" data-dismiss="modal">关闭</button>
+                <button type="submit" class="btn green">保存</button>
+            </div>
+        </div>
+
+    </form>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

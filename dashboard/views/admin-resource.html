@@ -1,0 +1,147 @@
+
+<div class="page-bar patac-breadcrumb">
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="icon-home font-white"></i>
+            <span class="font-white">权限配置</span>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <i class="font-white"></i>
+            <a ui-sref="admin.resource" class="font-white">资源管理</a>
+        </li>
+    </ul>
+</div>
+<!-- BEGIN PAGE CONTENT-->
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="portlet patac-portlet">
+            <div class="portlet-title">
+                <div class="caption">
+                    <span class="caption-subject bold uppercase">资源管理 </span>
+                </div>
+                <button class="btn btn-outline white modal-header pull-right" ng-click="create()">
+                    <i class="fa fa-plus"></i>添加</button>
+                
+            </div>
+            <div class="portlet-body">
+                
+                <table class="table table-striped table-bordered table-checkable order-column hide" id="resource">
+                    <thead>
+                        <tr>
+                           <!--  <th></th> -->
+                            <th> 资源名称 </th>
+                            <th> 链接 </th>
+                            <th> 资源描述 </th>
+                            <th> 排序号</th>
+                            <th> 资源类型 </th>
+                            <th> 修改人 </th>
+                            <th > 操作 </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="data in datas" on-repeat-finished>
+                            <!-- <td>
+                                <input type="checkbox" class="checkboxes" value="1" /> </td> -->
+                            <td > {{data.resourceName}} </td>
+                            <td ng-bind="data.url "></td>
+                            <td ng-bind="data.resourceDesc"></td>
+                            <td ng-bind="data.seq "></td>
+                            <td><i class="fa {{data.resourceType}}"></i> {{data.resourceType}} </td>
+                            <td ng-bind="data.modifyUser"></td>
+                            <td>
+                                <button class="btn btn-outline white" action="edit" data-id="{{data.id}}" data-toggle="modal" href="#draggable" ng-click="upData($event)">修改</button>
+                                <button class="btn btn-danger" action="delete" data-id="{{data.id}}" ng-click="delData(data.id)">删除</button>
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade draggable-modal" id="draggable" tabindex="-1" role="basic" aria-hidden="true"  data-backdrop="static">
+    <div class="modal-dialog">
+    <form class=" form-row-seperated" method="post" name="userForm" ng-submit="save(userForm)" ng-validate="validationOptions">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title text-center font-green-sharp bold uppercase" ng-bind="action">资源编辑</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                <div class="col-md-12">
+                        <div class="portlet">
+                            <div class="portlet-body">
+                                <div class="form-body">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group form-md-line-input">
+                                                <input type="text" class="form-control" name="resourceName" id="resourceName" placeholder="请输入资源名"
+                                                ng-model="data.resourceName" required>
+                                                <label for="resourceName">资源名
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                             <div class="form-group form-md-line-input">
+                                                <input type="number" class="form-control" name="seq" id="seq" placeholder="请输入排序号"
+                                                ng-model="data.seq" number>
+                                                <label for="seq">排序号
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group form-md-line-input">
+                                                <input type="text" class="form-control" id="resourceType" name="resourceType" placeholder="请输入资源类型"
+                                                ng-model="data.resourceType">
+                                                <label for="resourceType">资源类型
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group form-md-line-input">
+                                                <input type="text" class="form-control" name="url" id="url" placeholder="请输入链接地址"
+                                                ng-model="data.url">
+                                                <label for="url">链接地址
+                                                </label>
+                                            </div>
+                                        </div><div class="col-md-6">
+                                            <div class="form-group form-md-line-input">
+                                                <input type="text" class="form-control" name="parentId" id="parentId" placeholder="请输入上级id"
+                                                ng-model="data.parentId">
+                                                <label for="parentId">上级id
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group form-md-line-input">
+                                        <textarea rows="4" class="form-control" id="resourceDesc" name="resourceDesc" rows="3" ng-model="data.resourceDesc" placeholder="请输入资源描述"></textarea>
+                                        <label for="userDesc">资源描述</label>
+                                    </div>
+
+                                </div>
+                                
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn dark btn-outline" data-dismiss="modal">关闭</button>
+                <button type="submit" class="btn green">保存</button>
+            </div>
+        </div>
+
+    </form>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

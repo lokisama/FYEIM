@@ -1,0 +1,6 @@
+node_modules/
+dest/
+/gulpfile.js
+/package.json
+plugins/
+.idea

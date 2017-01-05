@@ -1,0 +1,158 @@
+<style type="text/css">
+	body {overflow:auto!important;}
+</style>
+
+<div class="row num-row">
+	<div class="num-col">
+		<div class="num-div num-div-green">
+			<span class="icon-control-play"></span>
+			<span class="num" ng-bind="status[1]">0</span>
+		</div>
+	</div>
+	<div class="num-col">
+		<div class="num-div num-div-blue">
+			<span class="icon-control-pause"></span>
+			<span class="num" ng-bind="status[4]">0</span>
+		</div>
+	</div>
+	<div class="num-col">
+		<div class="num-div num-div-gray">
+			<i class="fa fa-history"></i>
+			<span class="num" ng-bind="status[3]">0</span>
+		</div>
+	</div>
+	<div class="num-col">
+		<div class="num-div num-div-yellow">
+			<i class="fa fa-square-o"></i>
+			<span class="num" ng-bind="status[0]">0</span>
+		</div>
+	</div>
+	<div class="num-col">
+		<div class="num-div num-div-red">
+			<i class="fa fa-exclamation-triangle"></i>
+			<span class="num" ng-bind="status[2]">0</span>
+		</div>
+	</div>
+</div>
+
+<div class="row chart-row">
+	<div class="col-md-9">
+		<div class="chart-wrapper chart-wrapper-m" id="chartWrapper">
+			<div class="chart-meta">
+				<h3>0</h3>
+				<p>试验效能指数</p>
+				<div class="progress">
+				  	<div class="progress-bar" role="progressbar" data-val="0"></div>
+				</div>
+				<p>
+					<span class="left">同比</span>
+					<span class="right"><i class="fa"></i> <span class="chart-num">0</span>%</span>
+				</p>
+			</div>
+			<div class="chart-div" id="efficiencyCoeffDiv"></div>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<div class="chart-wrapper chart-wrapper-m" style="padding:0;">
+			<div class="carousel slide" data-ride="carousel" id="carousel3D">
+			  	<!--<ol class="carousel-indicators">
+			    	<li data-target="#carousel3D" data-slide-to="0" class="active"></li>
+			    	<li data-target="#carousel3D" data-slide-to="1"></li>
+			  	</ol>-->
+			  	<div class="carousel-inner" role="listbox">
+				    <div ng-class="{true:'hidden', false:'item active'}[doubleLabel]">
+				    	<div class="portlet patac-portlet" style="height:220px;">
+				            <div class="portlet-title">
+				                <div class="caption">
+				                    <span class="caption-subject font-white uppercase" ng-bind="areaName[0]">LAB车身试验区 </span>
+				                </div>
+				            </div>
+				            <div class="portlet-body">
+				                <div id="3d_view1" ></div>
+				            </div>
+				        </div>
+				    </div>
+				    <div ng-class="{true:'item active', false:'hidden'}[doubleLabel]">
+						<div class="portlet patac-portlet" style="height:220px;">
+				            <div class="portlet-title">
+				                <div class="caption">
+				                    <span class="caption-subject font-white uppercase" ng-bind="areaName[1]">LAB车身试验区 </span>
+				                </div>
+				            </div>
+				            <div class="portlet-body">
+				                <div id="3d_view2" ></div>
+				            </div>
+				        </div>
+				    </div>
+			  	</div>
+			</div>
+       	</div>
+	</div>
+</div>
+
+<div class="row chart-row">
+	<div class="col-md-3">
+		<div class="chart-wrapper">
+			<div class="chart-meta">
+				<h3>0</h3>
+				<p>重点设备完好率(%)</p>
+				<div class="progress">
+				  	<div class="progress-bar" role="progressbar" data-val="0"></div>
+				</div>
+				<p>
+					<span class="left">同比</span>
+					<span class="right"><i class="fa "></i> <span class="chart-num">0</span>%</span>
+				</p>
+			</div>
+			<div class="chart-div" id="intactRateDiv"></div>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<div class="chart-wrapper">
+			<div class="chart-meta">
+				<h3>0</h3>
+				<p>耐久型设备利用率(%)</p>
+				<div class="progress">
+				  	<div class="progress-bar" role="progressbar" data-val="0"></div>
+				</div>
+				<p>
+					<span class="left">同比</span>
+					<span class="right"><i class="fa "></i> <span class="chart-num">0</span>%</span>
+				</p>
+			</div>
+			<div class="chart-div" id="utilizRateDiv"></div>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<div class="chart-wrapper">
+			<div class="chart-meta">
+				<h3>0</h3>
+				<p>非耐久型设备利用率(%)</p>
+				<div class="progress">
+				  	<div class="progress-bar" role="progressbar" data-val="0"></div>
+				</div>
+				<p>
+					<span class="left">同比</span>
+					<span class="right"><i class="fa "></i> <span class="chart-num">0</span>%</span>
+				</p>
+			</div>
+			<div class="chart-div" id="durautilizRateDiv"></div>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<div class="chart-wrapper">
+			<div class="chart-meta">
+				<h3>0</h3>
+				<p>在线设备开动率(%)</p>
+				<div class="progress">
+				  	<div class="progress-bar" role="progressbar" data-val="4"></div>
+				</div>
+				<p>
+					<span class="left">同比</span>
+					<span class="right"><i class="fa "></i> <span class="chart-num">0</span>%</span>
+				</p>
+			</div>
+			<div class="chart-div" id="startRateDiv"></div>
+		</div>
+	</div>
+</div>

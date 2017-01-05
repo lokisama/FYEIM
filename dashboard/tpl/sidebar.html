@@ -1,0 +1,160 @@
+
+<!-- BEGIN SIDEBAR -->
+<div class="page-sidebar-wrapper">
+    <!-- BEGIN SIDEBAR -->
+    <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+    <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+    <div class="page-sidebar navbar-collapse collapse">
+        <!-- BEGIN SIDEBAR MENU -->
+        <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+        <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+        <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+        <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+        <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+        <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+        <ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" 
+            style="padding-top: 20px">
+            <li class="nav-item" ng-repeat="item in menu">
+                <a href="javascript:;" class="nav-link nav-toggle" >
+                    <i class="fa {{item.resourceType}}"></i>  
+                    <span class="title" >{{item.resourceName}}</span>
+                    <span class="arrow" ng-if="item.child"></span>
+                </a>
+                <ul class="sub-menu" ng-if="item.child">
+                    <li class="nav-item" ng-repeat="i in item.child">
+                        <a href="{{i.url}}" target="_blank" class="nav-link nav-toggle">
+                            <span class="title" >{{i.resourceName}}</span>
+                            <span class="arrow" ng-if="i.child"></span>
+                        </a>
+                        <ul class="sub-menu" ng-if="i.child">
+                            <li class="nav-item" ng-repeat="j in i.child">
+                                <a  class="nav-link nav-toggle" > 
+                                    <span class="title" ng-click="open(j.url,$event)">{{j.resourceName}}</span>
+                                    <span class="arrow" ng-if="j.child"></span>
+                                </a>
+                                <ul class="sub-menu" ng-if="j.child">
+                                    <li class="nav-item " ng-repeat="k in j.child">
+                                        <a href="{{k.url}}" target="_blank" class="nav-link"> {{k.resourceName}} </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            
+           <!--  <li class="nav-item">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="icon-bar-chart"></i>
+                    <span class="title">指标看板</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                            <span class="title">王港基地</span>
+                            <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item ">
+                                <a href="#/lab" target="_blank" class="nav-link nav-toggle"> 
+                                    <span class="title"  ng-click="open('#/lab/LAB02',$event)">结构试验室</span>
+                                    <span class="arrow"></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="nav-item ">
+                                        <a href="#/lab/LAB02" target="_blank" class="nav-link"> MTS设备 </a>
+                                    </li>
+                                    <li class="nav-item ">
+                                        <a href="#/lab/LAB02" target="_blank" class="nav-link"> HPU设备 </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item ">
+                                <a href="#/lab" target="_blank" class="nav-link nav-toggle" > 
+                                    <span class="title" ng-click="open('#/lab/LAB03',$event)">动力及性能试验室</span>
+                                    <span class="arrow"></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="nav-item ">
+                                        <a href="#/BEP/1" class="nav-link"> BEP设备 </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#/dashboard">
+                            金桥基地 </a>
+                    </li>
+                    <li>
+                        <a href="#/dashboard">
+                            广德基地 </a>
+                    </li>
+                    <li>
+                        <a href="#/dashboard">
+                             黑河基地 </a>
+                    </li>
+                   
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="#/dashboard" id="sidebar_menu_link_profile" class="nav-link nav-toggle">
+                    <i class="fa fa-files-o"></i>
+                    <span class="title">分析报表</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a href="/eim_qa.jsp">
+                            试验室月度分析 </a>
+                    </li>
+                    <li>
+                        <a href="/eim_qa.jsp">
+                            设备报警分析 </a>
+                    </li>
+                    <li>
+                        <a href="/eim_qa.jsp">
+                            自定义报表分析 </a>
+                    </li>
+                    
+                </ul>
+            </li>
+            
+            <li class="nav-item">
+                <a href="#/dashboard" class="nav-link nav-toggle">
+                    <i class="icon-user"></i>
+                    <span class="title">权限配置</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a href="#/admin/user">
+                            用户管理 </a>
+                    </li>
+                   
+                    
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="#/dashboard" class="nav-link nav-toggle">
+                    <i class="icon-wrench"></i>
+                    <span class="title">数据维护</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                     <li>
+                        <a href="#/admin/role">
+                            角色管理 </a>
+                    </li>
+                    <li>
+                        <a href="#/admin/resource">
+                            资源管理 </a>
+                    </li>
+                </ul> -->
+            </li>
+        </ul>
+    </div>
+    <!-- END SIDEBAR -->
+</div>
+<!-- END SIDEBAR -->

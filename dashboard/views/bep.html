@@ -1,0 +1,219 @@
+<style>
+
+    .col-md-4 > .patac-portlet > .portlet-title {
+        margin-bottom: 0px;
+    }
+    .col-md-4 .portlet > .portlet-title{
+        min-height: 10px;
+    }
+    .col-md-4 .portlet > .portlet-title > .caption{
+        padding: 5px 0;
+    }
+    .col-md-4 .table-condensed > thead > tr > th{
+        padding: 0;
+    }
+    .col-md-4 .portlet.patac-portlet {
+        padding: 12px 20px 12.1px;
+    }
+    table.dataTable tbody th, table.dataTable tbody td {
+        padding: 4px 4px;
+    }
+</style>
+<!-- BEGIN PAGE CONTENT-->
+<div class="row">
+    <div class="col-md-8">
+        <!-- BEGIN TODO SIDEBAR -->
+        <div class="portlet patac-portlet" style="height:400px;">
+            <div class="portlet-title">
+                <div class="caption">
+                    <span class="caption-subject font-white uppercase">设备视频/照片 </span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                
+                <div class="device-image">
+                    <img src='./image/{{deviceId}}.jpg' />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="portlet patac-portlet">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject font-white uppercase">设备启停状态 </span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div>
+                    <span ng-style="statusColor" style="color:#a6e528;line-height:100px;display:block;margin:0 40px;font-size:24px;text-align:center;font-size:60px;font-weight:bold;" ng-bind="statusText">运 行</span>
+                    </div>
+
+                    <div id="TimeStatus" style="height:188px;"></div>
+                </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="portlet patac-portlet">
+                <div class="portlet-title"  style=" margin-bottom:0px;">
+                    <div class="caption">
+                        <span class="caption-subject font-white uppercase">工况参数</span>
+                    </div>
+                    
+                </div>
+                <div class="portlet-body">
+                    <table class="hpu-table">
+                        <thead>
+                            <tr>
+                                <th width="33%">Roll Speed</th>
+                                <th width="33%">Fan Speed</th>
+                                <th width="33%">Tractive Power</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><div class="hpu-label"><span ng-bind="getIndexMomentBEP.rollSpeed | number:2">45</span> Km/H</div></td>
+                                <td><div class="hpu-label"><span ng-bind="getIndexMomentBEP.windSpeed | number:2">45</span> Km/H</div></td>
+                                <td><div class="hpu-label"><span ng-bind="getIndexMomentBEP.tractiveEffort | number:2">45</span> N</div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div style="position: absolute;top:138px;left:26px;color: #fff;font-size: 16px;"><span>Tractive Power</span></div>
+                    <div id="bar1" style="height:226px;">
+
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        <!-- END TODO SIDEBAR -->
+    </div>
+    
+    <div class="col-md-4">
+
+        <div class="portlet patac-portlet " style="padding: 7px 20px 2px;">
+            <div class="portlet-title">
+                <div class="caption">
+                    <span class="caption-subject font-white uppercase">试验参数</span>
+                </div>
+                
+            </div>
+            <div class="portlet-body">
+                <!--<div class="btn btn-outline white btn-block">
+                    <h4 class="block">VIN:{{getIndexMomentBEP.vin}}</h4>
+                    <p > 描述:{{getIndexMomentBEP.desc}}</p>
+                </div>
+                <div class="m-t-sm">
+                <a class="btn btn-lg white btn-outline"><span ng-bind="getIndexMomentBEP.vehicleWeight | number:2"">1000</span> kg<br/>车辆重量</a>
+                <a class="btn btn-lg white btn-outline"><span ng-bind="getIndexMomentBEP.grade | number:2"">33.4</span><br/>坡度</a>
+                </div>-->
+                <table class="hpu-table table-condensed">
+                    <thead>
+                    <tr>
+                        <th width="50%">VIN</th>
+                        <th width="50%">描述</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><div class="hpu-label"><span ng-bind="getIndexMomentBEP.vin"></span></div></td>
+                        <td><div class="hpu-label"><span ng-bind="getIndexMomentBEP.desc"></span></div></td>
+
+                    </tr>
+                    </tbody>
+                </table>
+                <table class="hpu-table table-condensed">
+                    <thead>
+                    <tr>
+                        <th width="50%">Grade</th>
+                        <th width="50%">ETW Class</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><div class="hpu-label"><span ng-bind="getIndexMomentBEP.grade | number:2"></span>%</div></td>
+                        <td><div class="hpu-label"><span ng-bind="getIndexMomentBEP.vehicleWeight | number:2"></span>kg</div></td>
+
+                    </tr>
+                    </tbody>
+                </table>
+                
+            </div>
+        </div>
+
+        <div class="portlet patac-portlet" style="padding: 6px 20px 1px;">
+            <div class="portlet-title" >
+                <div class="caption">
+                    <span class="caption-subject uppercase font-white">Roadload Coefficicents </span>
+                </div>
+                
+            </div>
+            <div class="portlet-body">
+                <div class="dtable-scrollable">
+                <table class="table table-bordered patac-table table-condensed">
+                    <thead>
+                        <tr>
+                            <th>  </th>
+                            <th> A</br>(N) </th>
+                            <th> B</br>(N/(km/h)) </th>
+                            <th> C</br>(N/(km/h)^2) </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd gradeX" >
+                            <td> Target </td>
+                            <td> {{getIndexMomentBEP.targetA | number:2}} </td>
+                            <td> {{getIndexMomentBEP.targetB | number:2}} </td>
+                            <td> {{getIndexMomentBEP.targetC | number:2}} </td>
+                        </tr>
+                        <tr class="odd gradeX" >
+                            <td> Dyno Set </td>
+                            <td> {{getIndexMomentBEP.targetA - getIndexMomentBEP.coefA | number:2}} </td>
+                            <td> {{getIndexMomentBEP.targetB - getIndexMomentBEP.coefB | number:2}} </td>
+                            <td> {{getIndexMomentBEP.targetC - getIndexMomentBEP.coefC | number:2}} </td>
+
+                        </tr>
+
+                        <tr class="odd gradeX" >
+                            <td> Vehicle Loss</td>
+                            <td> {{getIndexMomentBEP.coefA | number:2}} </td>
+                            <td> {{getIndexMomentBEP.coefB | number:2}} </td>
+                            <td> {{getIndexMomentBEP.coefC | number:2}} </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
+
+        <div class="portlet patac-portlet" style="height: 365px;">
+            <div class="portlet-title">
+                <div class="caption">
+                    <span class="caption-subject uppercase font-white">报警信息 </span>
+                </div>
+                
+            </div>
+            <div class="portlet-body" >
+                
+                <table class="table table-bordered table-hover order-column" id="warningBEP" style="background: rgba(255,255,255,0);color:#fff">
+                    <thead>
+                        <tr>
+                            <th> 时间 </th>
+                            <th> 信息 </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr  ng-repeat="warning in getWarnningBEP" on-repeat-finished>
+                            <td ng-bind="warning.time | date:'MM-dd HH:mm:ss:sss' ">  </td>
+                            <td> {{warning.text}} </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+

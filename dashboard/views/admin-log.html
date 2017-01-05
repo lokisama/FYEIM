@@ -1,0 +1,119 @@
+
+<div class="page-bar patac-breadcrumb">
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="icon-home font-white"></i>
+            <span class="font-white">数据维护</span>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <i class="font-white"></i>
+            <a ui-sref="admin.user" class="font-white">报警日志阀值维护</a>
+        </li>
+    </ul>
+</div>
+<!-- BEGIN PAGE CONTENT-->
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet patac-portlet">
+            <div class="portlet-title">
+                <div class="caption">
+                    <span class="caption-subject bold uppercase">报警日志阀值维护 </span>
+                    <!-- <button class="btn btn-outline white modal-header" ng-click="create()">添加阈值</button> -->
+                </div>
+                
+            </div>
+            <div class="portlet-body">
+                
+                <table class="table table-striped table-bordered table-checkable order-column" id="warning">
+                    <thead>
+                        <tr>
+                            <th> 设备号</th>
+                            <th> 设备名称</th>
+                            <th> 通知邮箱 </th>
+                            <th> 报警是否可用</th>
+                            <th> 操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd gradeX" ng-repeat="data in datas" on-repeat-finished>
+                            <td ng-bind="data.eqptNo"></td>
+                            <td ng-bind="data.eqptName"></td>
+                            <td ng-bind="data.email"></td>
+                            <td ng-bind="data.isEffective | userStatus"></td>
+                            <td>
+                                <button class="btn btn-outline white" action="edit" data-toggle="modal" data-id="{{data.eqptNo}}" href="#draggable" ng-click="upData($event)">修改</button>
+                                <!-- <button class="btn btn-danger" data-id="{{data.eqptNo}}" action="delete">删除</button> -->
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade draggable-modal" id="draggable" tabindex="-1" role="basic" aria-hidden="true"  data-backdrop="static">
+    <div class="modal-dialog">
+    <form class=" form-row-seperated" method="post" name="userForm" ng-submit="save(userForm)" ng-validate="validationOptions">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title text-center font-green-sharp bold uppercase" ng-bind="action">HPU出油口温度维护</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                <div class="col-md-12">
+                        <div class="portlet">
+                            <div class="portlet-body">
+                                <div class="form-body">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group form-md-line-input">
+                                                <input type="text" class="form-control" name="eqptNo" id="eqptNo" placeholder="请输入设备编号"
+                                                ng-model="temp.eqptNo" disabled>
+                                                <label for="eqptNo">设备编号
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group form-md-line-input">
+                                                <input type="text" class="form-control" name="eqptNo" id="eqptName" placeholder="请输入设备编号"
+                                                       ng-model="temp.eqptName" disabled>
+                                                <label for="eqptNo">设备名称
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-inline form-md-line-input">
+                                                <label for="isEffective">
+                                                <input type="checkbox" class="form-control" id="isEffective" name="email" placeholder="请输入下限值"
+                                                ng-model="temp.isEffective"  ng-true-value="1" ng-false-value="0" style="position: relative;top:-2px;" />
+                                                是否有效
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-md-line-input">
+                                        <textarea rows="4" class="form-control" id="email" name="email" rows="3" ng-model="temp.email" email></textarea>
+                                        <label for="email">通知邮箱</label>
+                                        <error-msg></error-msg>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn dark btn-outline" data-dismiss="modal">关闭</button>
+                <button type="submit" class="btn green">保存</button>
+            </div>
+        </div>
+
+    </form>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

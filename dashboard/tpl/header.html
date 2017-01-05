@@ -1,0 +1,72 @@
+
+<div class="page-header-inner">
+    <!-- BEGIN PAGE TOP -->
+    <div class="page-top">
+        <div class="page-logo patac-logo">
+                <img src="./css/PATAC-logo.png" alt="logo" class="logo-default" /> 
+                <span>EIM设备管理系统</span> 
+        </div>
+        <div class="btn-group m-t-sm " ng-hide="!settings.layout.setDeviceButton">
+            <button type="button" class="btn btn-circle btn-outline white dropdown-toggle" data-toggle="dropdown">
+                <span class="hidden-sm hidden-xs" ng-bind="deviceName">设备选择&nbsp;</span>&nbsp;
+                <i class="fa fa-angle-down"></i>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li ng-repeat="menu in equipMenu" ng-click="setDevice(menu.equipType,menu.equipNo,menu.equipName)">
+                    <a href="#">
+                        <span ng-bind="menu.equipName" ></span> </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="btn-group m-t-sm no-btn-active" ng-hide="!settings.layout.setLabButton">
+            <button type="button" class="btn btn-circle btn-outline white">
+                <span ng-bind="labName">实验室选择&nbsp;</span>&nbsp;
+            </button>
+            
+        </div>
+
+        <!-- BEGIN TOP NAVIGATION MENU -->
+        <div class="top-menu pull-right">
+
+            <ul class="nav navbar-nav pull-right">
+                <li class="dropdown" ng-if="isLogin">
+                    <a href="#/dashboard" class="dropdown-toggle font-white">
+                        <i class="icon-home font-white"></i> 主页
+                    </a>
+                </li>
+
+                <li class="dropdown " ng-if="isLogin">
+                    <span class="username username-hide-on-mobile font-white "> 欢迎您，<span ng-bind="realName">鲁翔宇</span> </span>
+                </li>
+
+                <li class="dropdown "  ng-if="!isLogin">
+                    <a class="username username-hide-on-mobile font-white dropdown-toggle" ng-click="logInOut(true)"> <i class="fa fa-user font-white"></i>登录 </a>
+                </li>
+
+                <li class="dropdown">
+                    <span href="#" class="font-white">
+                    <span ng-bind="time">2016年9月28日</span>
+                    </span>
+                </li>
+
+                
+
+                <li class="dropdown" ng-if="isLogin">
+                    <a ng-click="logInOut(false)" class="dropdown-toggle font-white" alt="登出">
+                        <i class="icon-logout font-white"></i> 退出
+                    </a>
+                </li>
+                <!-- END QUICK SIDEBAR TOGGLER -->
+            </ul>
+        </div>
+        <!-- END TOP NAVIGATION MENU -->
+        <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
+
+    </div>
+    <!-- END PAGE TOP -->
+    
+    
+    
+    
+</div>

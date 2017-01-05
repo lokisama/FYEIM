@@ -1,0 +1,252 @@
+<style>
+    .col-md-4>.patac-portlet > .portlet-title {
+        margin-bottom: 0;
+    }
+    .portlet-body>.row{
+        position: relative;
+        top:-20px;
+    }
+    #bar4,#bar3{
+        top:-42px;
+    }
+</style>
+<!-- BEGIN PAGE CONTENT-->
+<div class="row">
+    <div class="col-md-8">
+        <!-- BEGIN TODO SIDEBAR -->
+        <div class="portlet patac-portlet" style="height:400px;">
+            <div class="portlet-title">
+                <div class="caption">
+                    <span class="caption-subject font-white uppercase">设备视频/照片 </span>
+                </div>
+                
+            </div>
+            <div class="portlet-body">
+                <div class="device-image">
+                    <img src='./image/HPU.png' />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <div class="portlet patac-portlet" style="height:400px;">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject font-white uppercase">设备启停状态 </span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div>
+
+                    <span style="color:#31A82C;line-height:100px;display:block;margin:0 40px;font-size:24px;text-align:center;font-size:60px;font-weight:bold;">运 行</span>
+                    </div>
+
+                    <div id="TimeStatus" style="height:200px;"></div>
+                    
+                </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6">
+
+                <div class="portlet patac-portlet" style="height:190px;">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject font-white uppercase">清洁度 </span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <table class="hpu-table">
+                        <thead>
+                            <tr>
+                                <th  width="25%"></th>
+                                <th  width="25%">4U</th>
+                                <th  width="25%">6U</th>
+                                <th  width="25%">14U</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr >
+                            <td>ISO</td>
+                            <td>
+                                <div class="hpu-label">
+                                <span class="" ng-bind="getIndexMomentHPU.iso4U | number:0">0</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="hpu-label">
+                                <span ng-bind="getIndexMomentHPU.iso6U | number:0">0</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="hpu-label">
+                                <span ng-bind="getIndexMomentHPU.iso14U | number:0">0</span>
+                                </div>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>NAS</td>
+                                <td colspan="3">
+                                    <div class="hpu-label" style="width:100%">
+                                        <span ng-bind="getIndexMomentHPU.nas | number:0">0</span>
+                                    </div>
+                                </td
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div id="bar1" style="height:200px;display:none"></div>
+                </div>
+                </div>
+
+                <div class="portlet patac-portlet" style="height:190px;">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject font-white uppercase">环境 </span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                        <table class="hpu-table " border="0">
+                            <thead>
+                                <tr>
+                                    <th width="25%">环境温度</th>
+                                    <th width="25%">水压</th>
+                                    <th width="25%">油液压力</th>
+                                    <th width="25%">水饱和度</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr >
+                                <td>
+                                    <div class="hpu-label">
+                                    <span><span ng-bind="getIndexMomentHPU.t_Env | number:0">0</span>℃</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="hpu-label">
+                                    <span><span ng-bind="getIndexMomentHPU.waterPressure | number:0|waterPressureFilter">0</span></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="hpu-label">
+                                    <span><span ng-bind="getIndexMomentHPU.oilPressure | number:0"></span>psi</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="hpu-label">
+                                    <span><span ng-bind="getIndexMomentHPU.saturation | number:0">0</span>%</span>
+                                    </div>
+                                </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                    <div id="bar1" style="height:150px;display:none"></div>
+                </div>
+                </div>
+            </div>
+        </div>
+        <!-- END TODO SIDEBAR -->
+    </div>
+    
+    <div class="col-md-4">
+
+        <div class="portlet patac-portlet " style="height: 400px">
+            <div class="portlet-title">
+                <div class="caption">
+                    <span class="caption-subject font-white uppercase">冷却水温度</span>
+                </div>
+                
+            </div>
+            <div class="portlet-body">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <!-- <a class="dashboard-stat dashboard-stat-v2 green" href="#">
+                            <div class="visual">
+                                <i class="fa fa-shopping-cart"></i>
+                            </div>
+                            <div class="details">
+                                <div class="number">
+                                    <span data-counter="counterup" data-value="549">
+                                        <span ng-bind="getIndexMomentHPU.t_WaterIn | number:2">0</span>°C</span>
+                                </div>
+                                <div class="desc"> 进水口温度 </div>
+                            </div>
+                        </a> -->
+                         <div id="waterIn" style="height:180px;"></div>
+                        
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <!-- <a class="dashboard-stat dashboard-stat-v2 blue" href="#">
+                                <div class="visual">
+                                    <i class="fa fa-comments"></i>
+                                </div>
+                                <div class="details">
+                                    <div class="number">
+                                    <span data-counter="counterup" data-value="1349">
+                                        <span ng-bind="getIndexMomentHPU.t_WaterOut | number:2">0</span>°C</span>
+                                    </div>
+                                    <div class="desc"> 出水口温度 </div>
+                                </div>
+                            </a> -->
+                        <div id="waterOut" style="height:180px;"></div>
+                    </div>
+                    
+                </div>
+
+                <div id="bar3" style="height:200px;"></div>
+            </div>
+
+        </div>
+
+        <div class="portlet patac-portlet " style="height: 400px;">
+            <div class="portlet-title">
+                <div class="caption">
+                    <span class="caption-subject font-white uppercase">液压油温度</span>
+                </div>
+                
+            </div>
+
+
+            <div class="portlet-body">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <!-- <a class="dashboard-stat dashboard-stat-v2 green" href="#">
+                            <div class="visual">
+                                <i class="fa fa-shopping-cart"></i>
+                            </div>
+                            <div class="details">
+                                <div class="number">
+                                    <span data-counter="counterup" data-value="549">
+                                        <span ng-bind="getIndexMomentHPU.t_OilIn | number:2">0</span>°C</span>
+                                </div>
+                                <div class="desc"> 进油口温度 </div>
+                            </div>
+                        </a> -->
+                        <div id="oilIn" style="height:180px;"></div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 ">
+                        <!-- <a class="dashboard-stat dashboard-stat-v2 blue" href="#">
+                                <div class="visual">
+                                    <i class="fa fa-comments"></i>
+                                </div>
+                                <div class="details">
+                                    <div class="number">
+                                        <span data-counter="counterup" data-value="1349">
+                                            <span ng-bind="getIndexMomentHPU.t_WaterOut | number:2">0</span>°C</span>
+                                    </div>
+                                    <div class="desc"> 出油口温度 </div>
+                                </div>
+                            </a> -->
+
+                        <div id="oilOut" style="height:180px;"></div>
+                    </div>
+                    
+                </div>
+                <div id="bar4" style="height:200px;"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
